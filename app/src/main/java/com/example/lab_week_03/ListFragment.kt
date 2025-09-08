@@ -19,12 +19,16 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 🔹 Ambil semua menu kopi dari layout (5 item sekarang)
         val coffeeList = listOf<View>(
             view.findViewById(R.id.affogato),
             view.findViewById(R.id.americano),
-            view.findViewById(R.id.latte)
+            view.findViewById(R.id.latte),
+            view.findViewById(R.id.cappuccino),
+            view.findViewById(R.id.mocha)
         )
 
+        // 🔹 Pasang click listener → navigasi ke DetailFragment pakai Jetpack Navigation
         coffeeList.forEach { coffee ->
             val fragmentBundle = Bundle()
             fragmentBundle.putInt(COFFEE_ID, coffee.id)

@@ -22,12 +22,18 @@ class DetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_detail, container, false)
     }
 
-    // 🔹 Nomor 9: Ambil coffeeId dari arguments
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val coffeeId = arguments?.getInt(COFFEE_ID, 0) ?: 0
+        // 🔹 Ambil coffeeId dari arguments
+        val coffeeId = arguments?.getInt(ListFragment.COFFEE_ID, 0) ?: 0
         setCoffeeData(coffeeId)
+
+        // 🔹 Tambah Back Button
+        val backButton: View = view.findViewById(R.id.btn_back)
+        backButton.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     fun setCoffeeData(id: Int) {
@@ -44,17 +50,14 @@ class DetailFragment : Fragment() {
                 coffeeTitle?.text = getString(R.string.latte_title)
                 coffeeDesc?.text = getString(R.string.latte_desc)
             }
-        }
-    }
-
-    companion object {
-        private const val COFFEE_ID = "COFFEE_ID"
-
-        fun newInstance(coffeeId: Int) =
-            DetailFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(COFFEE_ID, coffeeId)
-                }
+            R.id.cappuccino -> {
+                coffeeTitle?.text = getString(R.string.cappuccino_title)
+                coffeeDesc?.text = getString(R.string.cappuccino_desc)
             }
+            R.id.mocha -> {
+                coffeeTitle?.text = getString(R.string.mocha_title)
+                coffeeDesc?.text = getString(R.string.mocha_desc)
+            }
+        }
     }
 }
