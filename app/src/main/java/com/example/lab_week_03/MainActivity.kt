@@ -7,7 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class MainActivity : AppCompatActivity() {
+// 🔹 Interface dipakai oleh ListFragment untuk kirim event klik ke MainActivity
+interface CoffeeListener {
+    fun onSelected(id: Int)
+}
+
+class MainActivity : AppCompatActivity(), CoffeeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +51,13 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d(TAG, "onDestroy")
+    }
+
+    // 🔹 Implementasi CoffeeListener
+    override fun onSelected(id: Int) {
+        val detailFragment = supportFragmentManager
+            .findFragmentById(R.id.fragment_detail) as DetailFragment
+        detailFragment.setCoffeeData(id)
     }
 
     companion object {
