@@ -15,23 +15,19 @@ class DetailFragment : Fragment() {
     private val coffeeDesc: TextView?
         get() = view?.findViewById(R.id.coffee_desc)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate layout fragment_detail.xml
         return inflater.inflate(R.layout.fragment_detail, container, false)
     }
 
+    // 🔹 Nomor 9: Ambil coffeeId dari arguments
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 🔹 Default: tampilkan Affogato saat pertama kali dibuka
-        setCoffeeData(R.id.affogato)
+        val coffeeId = arguments?.getInt(COFFEE_ID, 0) ?: 0
+        setCoffeeData(coffeeId)
     }
 
     fun setCoffeeData(id: Int) {
@@ -52,12 +48,12 @@ class DetailFragment : Fragment() {
     }
 
     companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        private const val COFFEE_ID = "COFFEE_ID"
+
+        fun newInstance(coffeeId: Int) =
             DetailFragment().apply {
                 arguments = Bundle().apply {
-                    putString("param1", param1)
-                    putString("param2", param2)
+                    putInt(COFFEE_ID, coffeeId)
                 }
             }
     }
